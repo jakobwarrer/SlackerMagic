@@ -2,9 +2,9 @@ import './App.css';
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import styled, { keyframes } from 'styled-components';
 
-import { cardsFetchData } from './actions/cards';
-import logo from './logo.svg';
+import { cardsFetchData, filterColor } from './actions/cards';
 
 class App extends Component {
   componentDidMount() {
@@ -13,30 +13,57 @@ class App extends Component {
     );
   }
   render() {
-    if (this.props.hasErrored) {
-      return <p>Sorry! There was an error loading the cards</p>;
-    }
-    if (this.props.isLoading) {
-      return <p>Loading…</p>;
-    }
-    if (!this.props.cards) return null;
+    const scale = keyframes`
+      from {
+        transform: scale(0);
+      }
+
+      to {
+        transform: scale(1);
+      }
+    `;
+    const List = styled.ul`
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+    `;
+    const Item = styled.li`
+      flex: 1 0 25%;
+      max-width: 25%;
+      animation: ${scale} 0.3s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+      img {
+        width: 100%;
+      }
+    `;
+
+    // if (this.props.hasErrored) {
+    //   return <p>Sorry! There was an error loading the cards</p>;
+    // }
+    // if (this.props.isLoading) {
+    //   return <p>Loading…</p>;
+    // }
+    // if (!this.props.cards) return null;
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <ul>
+          <button
+            onClick={() => this.props.filterColor(this.props.cards, "White")}
+          >
+            White
+          </button>
+          <List>
             {this.props.cards.map((card, index) => (
-              <li key={index}>
-                <p>{card.name}</p>
+              <Item key={index}>
                 <img src={card.imageUrl} alt={`Card front of ${card.name}`} />
-              </li>
+              </Item>
             ))}
-          </ul>
+          </List>
         </header>
       </div>
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
     cards: state.cards,
@@ -47,7 +74,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchData: url => dispatch(cardsFetchData(url))
+    fetchData: url => dispatch(cardsFetchData(url)),
+    filterColor: color => dispatch(filterColor(color))
   };
 };
 

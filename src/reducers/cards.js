@@ -22,3 +22,17 @@ export function cards(state = [], action) {
       return state;
   }
 }
+export function filter(state = [], action) {
+  console.log(state.cards);
+
+  switch (action.type) {
+    case "CARDS_FILTER_COLOR":
+      return Object.assign({}, state, {
+        filtered: state.cards.filter(t => t.colors.includes(action.color))
+      });
+    case "CARDS_RESET":
+      return state.cards;
+    default:
+      return state;
+  }
+}

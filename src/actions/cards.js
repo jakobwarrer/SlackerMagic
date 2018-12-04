@@ -16,6 +16,12 @@ export function cardsFetchDataSuccess(cards) {
     cards
   };
 }
+export function filterColor(color) {
+  return {
+    type: "CARDS_FILTER_COLOR",
+    color
+  };
+}
 
 export function errorAfterFiveSeconds() {
   // We return a function instead of an action object
@@ -30,7 +36,7 @@ export function errorAfterFiveSeconds() {
 export function cardsFetchData(url) {
   return dispatch => {
     dispatch(cardsIsLoading(true));
-    let page = 0;
+    let page = 1;
     let allCards = [];
     const repeat = () =>
       fetch(`https://api.magicthegathering.io/v1/cards?page=${page}&set=GRN`)
