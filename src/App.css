@@ -21,7 +21,20 @@
 .App-link {
   color: #61dafb;
 }
-
+.Countdown-col-element {
+  display: flex;
+  flex-direction: column;
+}
+.Countdown-col {
+  display: inline-block;
+}
+.Countdown-col strong {
+  font-size: 1.5em;
+  font-weight: 700;
+}
+.Countdown-col + .Countdown-col {
+  margin-left: 1.5rem;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
