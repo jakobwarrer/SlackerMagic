@@ -30,7 +30,7 @@ export function sets(state = [], action) {
       return state;
   }
 }
-export function currentSet(state = "GRN", action) {
+export function currentSet(state = "RNA", action) {
   switch (action.type) {
     case "SET_CURRENT_SET":
       return action.set;

@@ -68,6 +68,7 @@ class App extends Component {
       flex-wrap: wrap;
       list-style: none;
       width: 100%;
+      max-width: 1200px;
       margin-top: 3rem;
     `;
     const Item = styled.li`
@@ -186,19 +187,19 @@ class App extends Component {
           {this.props.isLoading ? (
             <CircularProgress />
           ) : (
-            <List>
-              {this.props.cards.map((card, index) => (
-                <Item key={index}>
-                  <LazyLoad offset={100}>
-                    <Img
-                      src={card.imageUrl}
-                      alt={`Card front of ${card.name}`}
-                    />
-                  </LazyLoad>
-                </Item>
-              ))}
-            </List>
-          )}
+              <List>
+                {this.props.cards.map((card, index) => (
+                  <Item key={index}>
+                    <LazyLoad offset={100}>
+                      <Img
+                        src={card.imageUrl}
+                        alt={`Card front of ${card.name}`}
+                      />
+                    </LazyLoad>
+                  </Item>
+                ))}
+              </List>
+            )}
         </header>
       </div>
     );
@@ -209,16 +210,16 @@ const getColorCards = (cards, filter) => {
   filteredCards =
     filter.colors.length > 0
       ? filteredCards.filter(t =>
-          t.colorIdentity
-            ? t.colorIdentity.find(color => filter.colors.includes(color))
-            : false
-        )
+        t.colorIdentity
+          ? t.colorIdentity.find(color => filter.colors.includes(color))
+          : false
+      )
       : filteredCards;
   filteredCards =
     filter.rarity.length > 0
       ? filteredCards.filter(t =>
-          t.rarity ? filter.rarity.includes(t.rarity) : false
-        )
+        t.rarity ? filter.rarity.includes(t.rarity) : false
+      )
       : filteredCards;
 
   return filteredCards;
